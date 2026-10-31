@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Anton, Geist, Sedgwick_Ave_Display } from "next/font/google";
+import { Geist, Sedgwick_Ave_Display } from "next/font/google";
 import "./globals.css";
 import { site } from "@/config/site";
 import { MotionProvider } from "@/components/providers/motion-provider";
@@ -12,14 +12,6 @@ import { BackToTop } from "@/components/layout/back-to-top";
 const geist = Geist({
   variable: "--font-geist",
   subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
-
-// Сверхузкий тяжёлый гротеск для постерного слова Viberg
-const poster = Anton({
-  variable: "--font-poster",
-  weight: "400",
-  subsets: ["latin"],
   display: "swap",
 });
 
@@ -56,7 +48,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${geist.variable} ${marker.variable} ${poster.variable} antialiased`}>
+    <html lang="ru" className={`${geist.variable} ${marker.variable} antialiased`}>
       <body className="min-h-dvh">
         <a
           href="#main"

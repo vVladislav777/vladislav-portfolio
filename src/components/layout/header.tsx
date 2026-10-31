@@ -37,18 +37,17 @@ export function Header() {
   return (
     <>
       <header
-        style={{ viewTransitionName: "site-header" }}
         className="pointer-events-none fixed inset-x-0 top-0 z-[70]"
       >
         <div className="container-x flex h-18 items-center justify-between gap-6 md:h-20">
           <TLink
             href="/"
-            className="pointer-events-auto font-[family-name:var(--font-poster)] text-2xl leading-none tracking-wide text-white uppercase mix-blend-difference"
+            className="glass pointer-events-auto rounded-full bg-black/60! px-3.5 py-1.5 text-lg leading-none font-extrabold tracking-[-0.04em] text-white lowercase"
             aria-label={`${site.brand}. На главную`}
           >
             {site.brand}
           </TLink>
-          <span className="glass pointer-events-auto hidden items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium sm:flex">
+          <span className="glass pointer-events-auto hidden items-center gap-2 rounded-full bg-black/60! px-3.5 py-2 text-xs font-medium text-white sm:flex">
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-fg opacity-50 [animation-duration:2s]" />
               <span className="relative inline-flex size-2 rounded-full bg-fg" />
@@ -63,7 +62,7 @@ export function Header() {
         style={{ viewTransitionName: "site-dock" }}
         className="fixed inset-x-0 bottom-4 z-[72] flex justify-center px-4 md:bottom-6"
       >
-        <div className="glass flex w-full max-w-[22rem] items-center justify-between gap-2 rounded-[1.4rem] p-1.5">
+        <div className="glass flex w-full max-w-[22rem] items-center justify-between gap-2 rounded-[1.4rem] bg-black/65! p-1.5 text-white">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

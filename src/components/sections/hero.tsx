@@ -1,37 +1,61 @@
+import QRCode from "qrcode";
 import { telegramLink, site } from "@/config/site";
 import { ButtonLink } from "@/components/ui/button";
-import { HeroBackground } from "@/components/sections/hero-background";
-import { PosterName } from "@/components/sections/poster-name";
+import { ChaosName } from "@/components/sections/chaos-name";
 
-export function Hero() {
+/**
+ * Первый экран как постер «CHAOS»: белый лист, жидкое размытое название
+ * по центру, словарная подпись курсивом и QR-код в углу (ведёт в Telegram).
+ */
+export async function Hero() {
+  const qr = await QRCode.toString(site.telegram.url, {
+    type: "svg",
+    margin: 0,
+    color: { dark: "#0a0a0a", light: "#ffffff00" },
+  });
+
   return (
     <section
       aria-labelledby="hero-title"
-      className="theme-dark relative isolate flex h-svh min-h-[640px] flex-col overflow-hidden bg-black"
+      className="theme-light relative isolate flex h-svh min-h-[620px] flex-col overflow-hidden"
     >
-      <div className="absolute inset-0 -z-10 opacity-30">
-        <HeroBackground />
-      </div>
+      <a
+        href={telegramLink()}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cursor="Telegram"
+        aria-label="QR-код и ссылка на Telegram"
+        className="fade-up absolute top-16 right-[var(--gutter)] flex w-20 flex-col items-center gap-1.5 md:top-20 md:w-28"
+        style={{ "--d": "1.2s" } as React.CSSProperties}
+      >
+        <span className="outline-word text-lg leading-none md:text-2xl">telegram</span>
+        <span className="block w-full [&_svg]:h-auto [&_svg]:w-full" dangerouslySetInnerHTML={{ __html: qr }} />
+      </a>
 
-      <div className="absolute inset-x-[var(--gutter)] top-16 bottom-28 md:top-20 md:bottom-32">
-        <PosterName text={site.brand} />
-      </div>
-
-      <div className="container-x relative mt-auto flex flex-col items-start gap-5 pb-24 md:flex-row md:items-end md:justify-between md:pb-28">
-        <p
-          className="glass fade-up max-w-sm rounded-[1.25rem] px-5 py-4 text-sm leading-snug text-fg/90 md:text-base"
-          style={{ "--d": "1.2s" } as React.CSSProperties}
-        >
-          Влад, 16 лет. Делаю сайты под задачу, а не из шаблона, чтобы они приносили заявки.
-        </p>
-        <div className="fade-up flex flex-wrap items-center gap-3" style={{ "--d": "1.35s" } as React.CSSProperties}>
-          <ButtonLink href="/#works" cursor="Работы">
-            Мои работы
-          </ButtonLink>
-          <ButtonLink href={telegramLink()} external cursor="Telegram">
-            Написать в Telegram
-          </ButtonLink>
+      <div className="container-x flex flex-1 flex-col items-center justify-center">
+        <div className="w-full max-w-6xl">
+          <ChaosName text={site.brand} />
         </div>
+        <p
+          className="fade-up mt-2 text-center font-serif text-base leading-snug text-[#1a1a1a] italic md:text-lg"
+          style={{ "--d": "1s" } as React.CSSProperties}
+        >
+          /{site.brand.toLowerCase()}/
+          <br />
+          сайты, которые цепляют и приносят заявки.
+        </p>
+      </div>
+
+      <div
+        className="fade-up container-x flex flex-wrap items-center justify-center gap-3 pb-24 md:pb-28"
+        style={{ "--d": "1.3s" } as React.CSSProperties}
+      >
+        <ButtonLink href="/#works" cursor="Работы">
+          Мои работы
+        </ButtonLink>
+        <ButtonLink href={telegramLink()} external cursor="Telegram">
+          Написать в Telegram
+        </ButtonLink>
       </div>
     </section>
   );
