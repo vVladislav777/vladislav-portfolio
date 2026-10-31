@@ -302,3 +302,18 @@ html.has-cursor textarea {
 .float-y {
   animation: float-y var(--dur, 6s) ease-in-out infinite;
 }
+
+/* ── Hero: брутальное имя «поднимается» из-под линии ── */
+@keyframes name-rise {
+  from {
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(18%);
+  }
+  to {
+    clip-path: inset(-10% 0 -10% 0);
+    transform: translateY(0);
+  }
+}
+.name-rise {
+  animation: name-rise 1.1s cubic-bezier(0.76, 0, 0.24, 1) 0.15s both;
+}
