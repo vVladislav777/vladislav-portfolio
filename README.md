@@ -84,4 +84,10 @@ public/videos/    сжатые ролики работ (по 2–3,5 МБ) и п
 
 ## Деплой
 
-**Vercel:** импортируйте репозиторий на vercel.com, настройки по умолчанию. **Cloudflare Pages:** через адаптер OpenNext (`@opennextjs/cloudflare`). После деплоя замените `site.url` на реальный домен.
+Сайт опубликован на GitHub Pages: **https://vvladislav777.github.io/vladislav-portfolio/**
+
+- Каждый пуш в `main` автоматически пересобирает и выкладывает сайт (workflow `.github/workflows/deploy.yml`, вкладка Actions в репозитории). Обычно это занимает 1–2 минуты.
+- Сборка для Pages — статический экспорт Next.js в папку `out/` с префиксом пути `/<имя репозитория>`. Он включается переменной `GITHUB_PAGES=true`, поэтому локальные `npm run dev` и `npm run start` работают как обычно.
+- Пути к файлам из `public/` в коде нужно собирать с `process.env.NEXT_PUBLIC_BASE_PATH` (как в `src/data/works.ts`), иначе на Pages они не найдутся. Ссылки через `Link` и `router` Next.js префиксует сам.
+- Локально собрать как на Pages: `GITHUB_PAGES=true PAGES_BASE_PATH=/vladislav-portfolio npm run build` (в Git Bash на Windows перед командой добавьте `MSYS_NO_PATHCONV=1`).
+- Свой домен: добавьте его в Settings → Pages → Custom domain и поменяйте `site.url` в `src/config/site.ts`. Если сайт будет в корне домена, уберите префикс: в workflow поставьте `PAGES_BASE_PATH: ""`.
