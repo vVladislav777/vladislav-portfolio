@@ -211,26 +211,9 @@ html.has-cursor textarea {
   line-height: 0.86;
 }
 
-/* Прозрачные «стеклянные» буквы: полупрозрачная заливка с бликом и мягким свечением.
-   Применяется только к «листовым» элементам с текстом: background-clip: text на
-   обёртках захватывает скрытые слои анимаций. Контур (text-stroke) не используем —
-   у вариативного Geist он рисует внутренние пересечения букв. */
-.brutal:not(:has(*)),
-.brutal :not(:has(*)) {
-  color: transparent;
-  background-image: linear-gradient(
-    172deg,
-    color-mix(in srgb, var(--ink) 92%, transparent) 0%,
-    color-mix(in srgb, var(--ink) 38%, transparent) 48%,
-    color-mix(in srgb, var(--ink) 18%, transparent) 62%,
-    color-mix(in srgb, var(--ink) 55%, transparent) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  filter: drop-shadow(0 0 0.5px color-mix(in srgb, var(--ink) 60%, transparent));
-}
 @utility brutal-box {
   border: 3px solid currentColor;
+  border-radius: var(--radius);
   box-shadow: 6px 6px 0 currentColor;
 }
 

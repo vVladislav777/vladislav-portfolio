@@ -25,8 +25,8 @@ export function Pricing() {
               <ButtonLink href={telegramLink("Здравствуйте! Хочу обсудить стоимость сайта.")} external>
                 Обсудить проект
               </ButtonLink>
-              <ButtonLink href="/#brief">
-                Заполнить бриф
+              <ButtonLink href="/#works">
+                Смотреть работы
               </ButtonLink>
             </div>
           </div>
