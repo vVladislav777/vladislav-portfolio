@@ -4,7 +4,7 @@ export const site = {
   brand: "Viberg",
   name: "Владислав",
   role: "веб-дизайнер и разработчик лендингов",
-  url: "https://vladislav.example.com",
+  url: "https://vvladislav777.github.io/vladislav-portfolio",
   telegram: {
     username: "username",
     get url() {

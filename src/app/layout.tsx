@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     description: site.description,
   },
   twitter: { card: "summary_large_image" },
-  alternates: { canonical: "/" },
+  alternates: { canonical: site.url },
 };
 
 export const viewport: Viewport = {

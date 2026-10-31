@@ -13,9 +13,10 @@ export type Work = {
   url: string;
 };
 
-/** Видео и постер лежат в public/videos/<slug>.mp4 и <slug>.jpg */
-export const workVideo = (slug: string) => `/videos/${slug}.mp4`;
-export const workPoster = (slug: string) => `/videos/${slug}.jpg`;
+/** Видео и постер лежат в public/videos/<slug>.mp4 и <slug>.jpg (с префиксом пути на GitHub Pages) */
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+export const workVideo = (slug: string) => `${base}/videos/${slug}.mp4`;
+export const workPoster = (slug: string) => `${base}/videos/${slug}.jpg`;
 
 export const works: Work[] = [
   {
