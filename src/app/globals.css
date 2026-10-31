@@ -249,15 +249,6 @@ html.has-cursor textarea {
   color: var(--fg);
 }
 
-/* Контурное слово над QR-кодом, как «free» на постере */
-.outline-word {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: transparent;
-  -webkit-text-stroke: 1.4px var(--fg);
-}
-
 /* Название проявляется из расфокуса */
 @keyframes chaos-in {
   from {
