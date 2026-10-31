@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Sedgwick_Ave_Display, Tinos } from "next/font/google";
+import { Geist, Sedgwick_Ave_Display } from "next/font/google";
 import "./globals.css";
 import { site } from "@/config/site";
 import { MotionProvider } from "@/components/providers/motion-provider";
@@ -11,15 +11,6 @@ import { BackToTop } from "@/components/layout/back-to-top";
 
 const geist = Geist({
   variable: "--font-geist",
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
-
-// Курсив с засечками для словарной подписи под названием (аналог Times, с кириллицей)
-const tinos = Tinos({
-  variable: "--font-tinos",
-  weight: ["400", "700"],
-  style: ["italic"],
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
@@ -57,7 +48,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${geist.variable} ${marker.variable} ${tinos.variable} antialiased`}>
+    <html lang="ru" className={`${geist.variable} ${marker.variable} antialiased`}>
       <body className="min-h-dvh">
         <a
           href="#main"

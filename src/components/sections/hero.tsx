@@ -40,7 +40,7 @@ export async function Hero() {
           <ChaosName text={site.brand} />
         </div>
         <p
-          className="fade-up mt-2 text-center font-[family-name:var(--font-tinos)] text-lg leading-snug text-[#111] italic md:text-xl"
+          className="fade-up mt-2 text-center text-base leading-snug font-medium text-[#111] md:text-lg"
           style={{ "--d": "1s" } as React.CSSProperties}
         >
           /{site.brand.toLowerCase()}/
