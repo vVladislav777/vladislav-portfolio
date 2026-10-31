@@ -2,6 +2,7 @@ import QRCode from "qrcode";
 import { telegramLink, site } from "@/config/site";
 import { ButtonLink } from "@/components/ui/button";
 import { ChaosName } from "@/components/sections/chaos-name";
+import { HeroBackground } from "@/components/sections/hero-background";
 
 /**
  * Первый экран как постер «CHAOS»: белый лист, жидкое размытое название
@@ -19,6 +20,8 @@ export async function Hero() {
       aria-labelledby="hero-title"
       className="theme-light relative isolate flex h-svh min-h-[620px] flex-col overflow-hidden"
     >
+      <HeroBackground />
+
       <a
         href={telegramLink()}
         target="_blank"
@@ -37,7 +40,7 @@ export async function Hero() {
           <ChaosName text={site.brand} />
         </div>
         <p
-          className="fade-up mt-2 text-center font-serif text-base leading-snug text-[#1a1a1a] italic md:text-lg"
+          className="fade-up mt-2 text-center font-[family-name:var(--font-tinos)] text-lg leading-snug text-[#111] italic md:text-xl"
           style={{ "--d": "1s" } as React.CSSProperties}
         >
           /{site.brand.toLowerCase()}/
