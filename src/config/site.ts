@@ -6,14 +6,14 @@ export const site = {
   role: "веб-дизайнер и разработчик лендингов",
   url: "https://vvladislav777.github.io/vladislav-portfolio",
   telegram: {
-    username: "username",
+    username: "V_viberg0",
     get url() {
       return `https://t.me/${this.username}`;
     },
   },
   channel: {
-    url: "https://t.me/channel",
-    label: "t.me/channel",
+    url: "https://t.me/vladweb_lending_0",
+    label: "t.me/vladweb_lending_0",
   },
   description:
     "Viberg — Влад, веб-дизайнер и разработчик. Делаю лендинги и многостраничные сайты с анимациями под задачу бизнеса, а не из шаблона. Цена договорная.",

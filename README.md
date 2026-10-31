@@ -17,7 +17,7 @@ npx tsc --noEmit
 
 ## Что нужно решить вам
 
-1. **Telegram и канал.** В `src/config/site.ts` замените `username`, `https://t.me/channel` и `site.url` (домен нужен для canonical, sitemap и Open Graph). Там же бренд `brand: "Viberg"`.
+1. **Telegram и канал** уже указаны в `src/config/site.ts`: @V_viberg0 и t.me/vladweb_lending_0. Там же бренд `brand: "Viberg"` и адрес сайта `site.url`.
 2. **Ссылки на работы.** В `src/data/works.ts` у каждой работы `url: "#"`: подставьте адреса сайтов, когда они будут опубликованы. Там же описания, теги и длительность роликов.
 3. **Новая работа.** Сожмите видео (без звука, 720p) и сделайте постер, затем добавьте объект в `works.ts`:
 
