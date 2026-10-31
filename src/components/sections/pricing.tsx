@@ -6,14 +6,13 @@ export function Pricing() {
   return (
     <section id="price" aria-labelledby="price-title" className="pb-[var(--section)]">
       <div className="container-x">
-        <Reveal className="relative overflow-hidden rounded-card border border-line bg-surface p-8 md:p-16">
-          <div aria-hidden className="absolute -top-24 -right-24 size-72 rounded-full bg-accent/15 blur-3xl" />
-          <p className="eyebrow">
-            <span className="text-accent">(05)</span> Стоимость
+        <Reveal className="brutal-box glass relative overflow-hidden p-8 md:p-16">
+                    <p className="flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase">
+            <span className="bg-fg px-2 py-1 font-mono text-bg">05</span> Стоимость
           </p>
           <h2
             id="price-title"
-            className="mt-6 font-display text-[clamp(2.2rem,7vw,6rem)] leading-none font-semibold tracking-[-0.03em]"
+            className="brutal mt-8 text-[clamp(2.6rem,9vw,8.5rem)]"
           >
             Цена договорная
           </h2>
@@ -26,7 +25,7 @@ export function Pricing() {
               <ButtonLink href={telegramLink("Здравствуйте! Хочу обсудить стоимость сайта.")} external>
                 Обсудить проект
               </ButtonLink>
-              <ButtonLink href="/#brief" variant="ghost">
+              <ButtonLink href="/#brief">
                 Заполнить бриф
               </ButtonLink>
             </div>

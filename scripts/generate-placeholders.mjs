@@ -6,11 +6,11 @@ import path from "node:path";
 import sharp from "sharp";
 
 const works = [
-  { slug: "terrascape-gazette", title: "TERRASCAPE", tint: "#c8ff3d", seed: 1 },
-  { slug: "sosnovy-dvor", title: "СОСНОВЫЙ ДВОР", tint: "#7fd1a0", seed: 2 },
-  { slug: "coffee-house", title: "КОФЕЙНЯ", tint: "#ffb36b", seed: 3 },
-  { slug: "volna", title: "ВОЛНА", tint: "#5ec8ff", seed: 4 },
-  { slug: "obzhig", title: "ОБЖИГ", tint: "#ff8f8f", seed: 5 },
+  { slug: "terrascape-gazette", title: "TERRASCAPE", tint: "#f3f3f1", seed: 1 },
+  { slug: "sosnovy-dvor", title: "СОСНОВЫЙ ДВОР", tint: "#bdbdba", seed: 2 },
+  { slug: "coffee-house", title: "КОФЕЙНЯ", tint: "#dcdcd8", seed: 3 },
+  { slug: "volna", title: "ВОЛНА", tint: "#9e9e9b", seed: 4 },
+  { slug: "obzhig", title: "ОБЖИГ", tint: "#e8e8e5", seed: 5 },
 ];
 
 const W = 1600;

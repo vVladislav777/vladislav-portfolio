@@ -1,21 +1,43 @@
 @import "tailwindcss";
 
-/* ── Токены дизайна ───────────────────────────────────────────── */
+/* ── Токены дизайна: чёрный фон, прозрачные стеклянные поверхности ── */
 :root {
-  --bg: #111111;
-  --surface: #1a1a1a;
-  --surface-2: #232323;
-  --line: rgb(255 255 255 / 0.12);
-  --fg: #f2f0ec;
-  --muted: #a6a39e;
-  --accent: #ff5a1f;
-  --accent-fg: #111111;
+  --bg: #000000;
+  --surface: rgb(255 255 255 / 0.04);
+  --surface-2: rgb(255 255 255 / 0.08);
+  --line: rgb(255 255 255 / 0.14);
+  --fg: #f5f5f3;
+  --muted: #a3a3a0;
+  --accent: #f5f5f3;
+  --accent-fg: #000000;
+  /* Цвет контура и заливки «стеклянных» букв */
+  --ink: #f5f5f3;
+
+  /* «Жидкое стекло» в духе iOS 26 */
+  --glass-bg: rgb(255 255 255 / 0.07);
+  --glass-border: rgb(255 255 255 / 0.2);
+  --glass-shadow: 0 8px 32px rgb(0 0 0 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.22),
+    inset 0 -1px 0 rgb(255 255 255 / 0.04);
 
   --radius: 1.25rem;
   --gutter: clamp(1rem, 4vw, 3rem);
   --section: clamp(6rem, 14vw, 12rem);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Инверсные (чёрные) секции: те же утилиты, другие значения переменных */
+/* Секции чуть светлее основного фона — для ритма на чёрном */
+.theme-dark {
+  --bg: #0b0b0b;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* На белых плашках «стеклянные» буквы рисуются чёрным */
+.bg-accent,
+.bg-fg {
+  --ink: var(--accent-fg);
 }
 
 @theme inline {
@@ -27,8 +49,10 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
-  --font-display: var(--font-unbounded);
-  --font-sans: var(--font-golos);
+  --color-background: var(--bg);
+  --font-display: var(--font-geist);
+  --font-sans: var(--font-geist);
+  --font-marker: var(--font-marker-tag);
   --radius-card: var(--radius);
   --ease-out-expo: var(--ease-out);
 }
@@ -42,17 +66,17 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-golos), system-ui, sans-serif;
+  font-family: var(--font-geist), system-ui, sans-serif;
   overflow-x: clip;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--accent-fg);
+  background: var(--fg);
+  color: var(--bg);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--fg);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -90,7 +114,7 @@ html.has-cursor textarea {
 }
 
 @utility eyebrow {
-  font-family: var(--font-golos), system-ui, sans-serif;
+  font-family: var(--font-geist), system-ui, sans-serif;
   font-size: 0.75rem;
   line-height: 1;
   font-weight: 500;
@@ -157,7 +181,7 @@ html.has-cursor textarea {
 .dots-field {
   background-image:
     radial-gradient(rgb(255 255 255 / 0.14) 1.2px, transparent 1.6px),
-    radial-gradient(60% 50% at 70% 20%, rgb(255 90 31 / 0.16), transparent 70%);
+    radial-gradient(60% 50% at 70% 20%, rgb(255 255 255 / 0.06), transparent 70%);
   background-size: 24px 24px, 100% 100%;
   animation: dots-drift 6s linear infinite;
   mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
@@ -192,7 +216,9 @@ html.has-cursor textarea {
   animation-timing-function: var(--ease-in-out);
 }
 ::view-transition-old(site-header),
-::view-transition-new(site-header) {
+::view-transition-new(site-header),
+::view-transition-old(site-dock),
+::view-transition-new(site-dock) {
   animation: none;
 }
 
@@ -212,4 +238,67 @@ html.has-cursor textarea {
     animation-duration: 0s !important;
     animation-delay: 0s !important;
   }
+}
+
+/* ── Жидкое стекло (iOS 26): иконки и подписи на полупрозрачной линзе ── */
+@utility glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+}
+
+/* ── Брутализм: тяжёлый гротеск капсом, плотный трекинг, жёсткие линейки ── */
+@utility brutal {
+  font-family: var(--font-geist), system-ui, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.055em;
+  line-height: 0.86;
+}
+
+/* Прозрачные «стеклянные» буквы: полупрозрачная заливка с бликом и мягким свечением.
+   Применяется только к «листовым» элементам с текстом: background-clip: text на
+   обёртках захватывает скрытые слои анимаций. Контур (text-stroke) не используем —
+   у вариативного Geist он рисует внутренние пересечения букв. */
+.brutal:not(:has(*)),
+.brutal :not(:has(*)) {
+  color: transparent;
+  background-image: linear-gradient(
+    172deg,
+    color-mix(in srgb, var(--ink) 92%, transparent) 0%,
+    color-mix(in srgb, var(--ink) 38%, transparent) 48%,
+    color-mix(in srgb, var(--ink) 18%, transparent) 62%,
+    color-mix(in srgb, var(--ink) 55%, transparent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 0.5px color-mix(in srgb, var(--ink) 60%, transparent));
+}
+@utility brutal-box {
+  border: 3px solid currentColor;
+  box-shadow: 6px 6px 0 currentColor;
+}
+
+/* ── Hero: имя «пишется» маркером слева направо ── */
+@keyframes marker-write {
+  from {
+    clip-path: inset(-20% 100% -20% -5%);
+  }
+  to {
+    clip-path: inset(-20% -5% -20% -5%);
+  }
+}
+.marker-write {
+  animation: marker-write 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
+}
+
+@keyframes float-y {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.float-y {
+  animation: float-y var(--dur, 6s) ease-in-out infinite;
 }

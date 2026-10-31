@@ -1,7 +1,10 @@
 import { SplitText, Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
-/** Нумерованная шапка секции: «(03) — Подпись» + крупный заголовок. */
+/**
+ * Брутальная шапка секции: толстая линейка во всю ширину, номер в чёрной
+ * плашке, подпись капсом и огромный заголовок тяжёлым гротеском.
+ */
 export function SectionHead({
   n,
   label,
@@ -18,27 +21,29 @@ export function SectionHead({
   id?: string;
 }) {
   return (
-    <div className={cn("grid gap-6 md:grid-cols-12 md:gap-8", className)}>
-      <Reveal className="md:col-span-3">
-        <p className="eyebrow flex items-center gap-3 pt-3">
-          <span className="text-accent">({n})</span>
-          <span className="h-px w-8 bg-line" aria-hidden />
-          {label}
+    <div className={cn("border-t-[3px] border-fg pt-4", className)}>
+      <Reveal y={12}>
+        <p className="flex items-center justify-between gap-4 text-xs font-bold tracking-[0.2em] uppercase">
+          <span className="flex items-center gap-3">
+            <span className="bg-fg px-2 py-1 font-mono text-bg">{n}</span>
+            {label}
+          </span>
+          <span aria-hidden className="hidden font-mono text-muted sm:inline">
+            {"///" + label.toUpperCase().replace(/\s+/g, "_")}
+          </span>
         </p>
       </Reveal>
-      <div className="md:col-span-9">
-        <SplitText
-          text={title}
-          className="font-display text-[clamp(2rem,6vw,5.5rem)] leading-[1.02] font-semibold tracking-[-0.03em]"
-        />
-        {lead && (
-          <Reveal delay={0.15}>
-            <p id={id} className="mt-6 max-w-2xl text-lg text-muted md:text-xl">
-              {lead}
-            </p>
-          </Reveal>
-        )}
-      </div>
+      <SplitText
+        text={title}
+        className="brutal mt-8 text-[clamp(2.6rem,9.5vw,10rem)] break-words hyphens-auto md:mt-12"
+      />
+      {lead && (
+        <Reveal delay={0.15}>
+          <p id={id} className="mt-8 max-w-2xl text-lg text-muted md:ml-auto md:text-xl">
+            {lead}
+          </p>
+        </Reveal>
+      )}
     </div>
   );
 }

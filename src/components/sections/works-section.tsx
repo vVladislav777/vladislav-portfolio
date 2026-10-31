@@ -27,7 +27,7 @@ export function WorksSection() {
         </WorksCounter>
 
         <div className="mt-20 flex justify-center">
-          <ButtonLink href="/works" variant="light" cursor="Все">
+          <ButtonLink href="/works" cursor="Все">
             Смотреть все работы
           </ButtonLink>
         </div>

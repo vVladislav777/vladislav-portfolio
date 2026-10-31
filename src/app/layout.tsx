@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Unbounded, Golos_Text } from "next/font/google";
+import { Geist, Sedgwick_Ave_Display } from "next/font/google";
 import "./globals.css";
 import { site } from "@/config/site";
 import { MotionProvider } from "@/components/providers/motion-provider";
@@ -9,15 +9,17 @@ import { Header } from "@/components/layout/header";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { BackToTop } from "@/components/layout/back-to-top";
 
-const unbounded = Unbounded({
-  variable: "--font-unbounded",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
 
-const golos = Golos_Text({
-  variable: "--font-golos",
-  subsets: ["latin", "cyrillic"],
+// Рукописный маркер-тег для имени — как подпись в референсе
+const marker = Sedgwick_Ave_Display({
+  variable: "--font-marker-tag",
+  weight: "400",
+  subsets: ["latin"],
   display: "swap",
 });
 
@@ -41,12 +43,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#111111",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${unbounded.variable} ${golos.variable} antialiased`}>
+    <html lang="ru" className={`${geist.variable} ${marker.variable} antialiased`}>
       <body className="min-h-dvh">
         <a
           href="#main"

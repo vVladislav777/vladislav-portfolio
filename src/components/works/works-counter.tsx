@@ -47,7 +47,7 @@ export function WorksCounter({
   return (
     <div ref={ref} className="relative">
       <div className="sticky top-18 z-20 -mx-[var(--gutter)] mt-12 flex items-center justify-between gap-6 border-b border-line bg-bg/80 px-[var(--gutter)] py-4 backdrop-blur-md md:top-20">
-        <div className="flex items-baseline gap-2 font-display text-3xl font-semibold tabular-nums md:text-5xl">
+        <div className="brutal flex items-baseline gap-2 text-4xl leading-none tabular-nums md:text-6xl">
           <span className="relative inline-flex h-[1.1em] overflow-hidden">
             <AnimatePresence mode="popLayout" initial={false}>
               <m.span
@@ -56,7 +56,7 @@ export function WorksCounter({
                 animate={{ y: "0%" }}
                 exit={{ y: "-100%" }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="text-accent"
+                className="text-fg"
               >
                 {pad(active + 1)}
               </m.span>

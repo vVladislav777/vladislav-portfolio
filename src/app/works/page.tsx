@@ -22,11 +22,11 @@ export default function WorksPage() {
             <span className="text-accent">(01)</span> Портфолио
           </p>
           <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-            <h1 className="fade-up font-display text-[clamp(3rem,12vw,11rem)] leading-[0.9] font-bold tracking-[-0.04em]" style={{ "--d": "0.2s" } as React.CSSProperties}>
+            <h1 className="brutal fade-up text-[clamp(3.4rem,14vw,13rem)]" style={{ "--d": "0.2s" } as React.CSSProperties}>
               Работы
             </h1>
             <p
-              className="fade-up font-display text-[clamp(3rem,12vw,11rem)] leading-[0.9] font-bold tracking-[-0.04em] text-transparent [-webkit-text-stroke:1.5px_var(--muted)]"
+              className="brutal fade-up text-[clamp(3.4rem,14vw,13rem)] opacity-40"
               style={{ "--d": "0.3s" } as React.CSSProperties}
               aria-label={`${works.length} проектов`}
             >

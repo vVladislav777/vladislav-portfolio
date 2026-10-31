@@ -59,7 +59,7 @@ export default async function CasePage({ params }: PageProps<"/works/[slug]">) {
           <SplitText
             as="h1"
             text={work.title}
-            className="mt-10 font-display text-[clamp(2.4rem,9vw,9rem)] leading-[0.95] font-bold tracking-[-0.04em]"
+            className="brutal mt-10 text-[clamp(2.6rem,10vw,10rem)] break-words"
           />
           <p className="fade-up mt-6 max-w-2xl text-lg text-muted md:text-xl" style={{ "--d": "0.4s" } as React.CSSProperties}>
             {work.excerpt}
@@ -93,7 +93,7 @@ export default async function CasePage({ params }: PageProps<"/works/[slug]">) {
               ))}
             </dl>
             <div className="pt-4">
-              <ButtonLink href={work.url} variant="ghost" cursor="Скоро">
+              <ButtonLink href={work.url} cursor="Скоро">
                 Открыть сайт
               </ButtonLink>
               <p className="mt-3 text-xs text-muted">Ссылка появится после публикации проекта.</p>
@@ -126,6 +126,19 @@ export default async function CasePage({ params }: PageProps<"/works/[slug]">) {
         </section>
 
         <section aria-label="Галерея" className="container-x grid gap-6 md:grid-cols-2">
+          {work.video && (
+            <video
+              src={work.video}
+              poster={workImage(work.slug, "cover")}
+              muted
+              loop
+              autoPlay
+              playsInline
+              controls
+              aria-label={`${work.title}: видео-обзор сайта`}
+              className="aspect-[16/11] w-full rounded-card bg-surface object-cover md:col-span-2"
+            />
+          )}
           <ParallaxImage
             src={workImage(work.slug, 1)}
             alt={`${work.title}: каталог и сетка карточек`}
@@ -147,8 +160,8 @@ export default async function CasePage({ params }: PageProps<"/works/[slug]">) {
             className="group container-x block"
           >
             <p className="eyebrow">Следующий кейс</p>
-            <div className="mt-6 flex items-end justify-between gap-6 border-b border-line pb-8 transition-colors duration-500 group-hover:border-accent">
-              <span className="font-display text-[clamp(2.2rem,8vw,8rem)] leading-[0.95] font-bold tracking-[-0.04em] transition-colors duration-500 group-hover:text-accent">
+            <div className="mt-6 flex items-end justify-between gap-6 border-b border-line pb-8 transition-colors duration-500 group-hover:border-fg">
+              <span className="brutal text-[clamp(2.4rem,9vw,9rem)] transition-transform duration-500 group-hover:translate-x-3">
                 {next.title}
               </span>
               <svg

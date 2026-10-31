@@ -1,9 +1,11 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useRef, useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 import { SectionHead } from "@/components/sections/section-head";
 import { Magnetic } from "@/components/ui/magnetic";
+import { MetallicButton } from "@/components/ui/metallic-button";
+import { metallicWidth } from "@/components/ui/button";
 import { telegramLink } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -37,8 +39,8 @@ function Chip({ name, value, type, checked, onChange }: ChipProps) {
           "inline-flex h-11 items-center gap-2 rounded-full border px-5 text-sm transition-all duration-300 select-none",
           "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-accent",
           checked
-            ? "border-accent bg-accent text-accent-fg"
-            : "border-line text-fg hover:border-fg/60",
+            ? "border-fg bg-fg text-bg"
+            : "glass text-fg hover:scale-[1.03]",
         )}
       >
         <span
@@ -74,6 +76,7 @@ export function BriefForm() {
   const [about, setAbout] = useState("");
   const [sent, setSent] = useState(false);
   const aboutId = useId();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const toggle = (list: string[], set: (v: string[]) => void, v: string) =>
     set(list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
@@ -112,7 +115,7 @@ export function BriefForm() {
           lead="Отметьте, что нужно, и нажмите кнопку. Откроется Telegram с готовым сообщением. Никаких обязательств."
         />
 
-        <form onSubmit={onSubmit} className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <form ref={formRef} onSubmit={onSubmit} className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col gap-8 lg:col-span-7">
             <Group legend="Тип сайта">
               {TYPES.map((v) => (
@@ -162,15 +165,13 @@ export function BriefForm() {
               </pre>
               <div className="mt-6 flex flex-col items-start gap-4">
                 <Magnetic>
-                  <button
-                    type="submit"
-                    className="inline-flex h-14 items-center gap-3 rounded-full bg-accent px-8 text-sm font-semibold text-accent-fg transition-transform active:scale-95"
-                  >
-                    Отправить в Telegram
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                      <path d="M3 13 13 3M5 3h8v8" stroke="currentColor" strokeWidth="1.6" />
-                    </svg>
-                  </button>
+                  <div className="rounded-full has-[button:focus-visible]:outline-2 has-[button:focus-visible]:outline-offset-4 has-[button:focus-visible]:outline-fg">
+                    <MetallicButton
+                      label="Отправить в Telegram"
+                      width={metallicWidth("Отправить в Telegram")}
+                      onClick={() => formRef.current?.requestSubmit()}
+                    />
+                  </div>
                 </Magnetic>
                 <p className="text-sm text-muted">Цену не считаем здесь: она договорная и обсуждается лично.</p>
                 <AnimatePresence>

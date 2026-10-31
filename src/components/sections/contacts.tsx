@@ -1,3 +1,4 @@
+import { Megaphone, Send } from "lucide-react";
 import { SectionHead } from "@/components/sections/section-head";
 import { Reveal } from "@/components/ui/reveal";
 import { site, telegramLink } from "@/config/site";
@@ -5,6 +6,7 @@ import { site, telegramLink } from "@/config/site";
 const cards = [
   {
     label: "Личный Telegram",
+    Icon: Send,
     value: `@${site.telegram.username}`,
     text: "Пишите напрямую: обсудим задачу и сроки.",
     href: telegramLink(),
@@ -12,6 +14,7 @@ const cards = [
   },
   {
     label: "Канал с работами",
+    Icon: Megaphone,
     value: site.channel.label,
     text: "Новые проекты, процесс и разборы.",
     href: site.channel.url,
@@ -33,14 +36,17 @@ export function Contacts() {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor={c.cta}
-                  className="group relative flex min-h-72 flex-col justify-between overflow-hidden rounded-card border border-line p-8 transition-colors duration-500 hover:border-accent md:p-10"
+                  className="glass group relative flex min-h-72 flex-col justify-between overflow-hidden rounded-card p-8 hover:[--ink:#000] transition-colors duration-500 hover:border-accent md:p-10"
                 >
                   <span
                     aria-hidden
                     className="absolute inset-0 origin-bottom scale-y-0 bg-accent transition-transform duration-700 ease-out-expo group-hover:scale-y-100"
                   />
                   <span className="relative flex items-center justify-between">
-                    <span className="eyebrow transition-colors group-hover:text-accent-fg/80">{c.label}</span>
+                    <span className="glass flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-semibold transition-colors group-hover:text-accent-fg">
+                      <c.Icon aria-hidden className="size-4" strokeWidth={1.7} />
+                      {c.label}
+                    </span>
                     <svg
                       width="22"
                       height="22"
@@ -53,7 +59,7 @@ export function Contacts() {
                     </svg>
                   </span>
                   <span className="relative">
-                    <span className="block font-display text-[clamp(1.6rem,4.5vw,3.25rem)] leading-tight font-semibold break-all transition-colors group-hover:text-accent-fg">
+                    <span className="brutal block text-[clamp(2rem,5vw,4rem)] break-all transition-colors group-hover:text-accent-fg">
                       {c.value}
                     </span>
                     <span className="mt-3 block text-muted transition-colors group-hover:text-accent-fg/80">

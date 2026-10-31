@@ -66,7 +66,7 @@ export function Process() {
             { scale: 0.4, backgroundColor: "#3a3a3a" },
             {
               scale: 1,
-              backgroundColor: "#ff5a1f",
+              backgroundColor: "#f5f5f3",
               scrollTrigger: { trigger: el, start: "top 62%", end: "top 55%", scrub: true },
             },
           );
@@ -100,7 +100,7 @@ export function Process() {
               <p className="eyebrow">
                 Шаг {String(i + 1).padStart(2, "0")} · {s.meta}
               </p>
-              <h3 className="mt-4 font-display text-[clamp(1.5rem,3.5vw,2.75rem)] leading-tight font-semibold tracking-tight">
+              <h3 className="brutal mt-4 text-[clamp(1.8rem,4vw,3.4rem)]">
                 {s.title}
               </h3>
               <p className="mt-4 max-w-xl text-lg text-muted">{s.text}</p>

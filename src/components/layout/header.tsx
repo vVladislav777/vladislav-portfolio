@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
+import { ArrowUpRight, Send } from "lucide-react";
 import { TLink } from "@/components/ui/t-link";
 import { Magnetic } from "@/components/ui/magnetic";
 import { navItems } from "@/components/layout/nav-items";
@@ -26,133 +27,86 @@ function useAnchorClick(onDone?: () => void) {
   };
 }
 
+/**
+ * Навигация как в референсе: сверху только подпись и статус, снизу —
+ * плавающая стеклянная «пилюля» с кнопками «Меню» и «Связаться».
+ */
 export function Header() {
-  const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const onAnchor = useAnchorClick();
-
-  useMotionValueEvent(scrollY, "change", (v) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    setScrolled(v > 40);
-    setHidden(v > 400 && v > prev);
-  });
 
   return (
     <>
-      <m.header
+      <header
         style={{ viewTransitionName: "site-header" }}
-        animate={{ y: hidden && !open ? "-110%" : "0%" }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className={cn(
-          "fixed inset-x-0 top-0 z-[70] transition-colors duration-500",
-          scrolled && "bg-bg/75 backdrop-blur-md",
-        )}
+        className="pointer-events-none fixed inset-x-0 top-0 z-[70]"
       >
         <div className="container-x flex h-18 items-center justify-between gap-6 md:h-20">
           <TLink
             href="/"
-            className="font-display text-lg font-bold tracking-tight"
-            aria-label="Влад. На главную"
+            className="pointer-events-auto font-marker text-2xl leading-none text-white mix-blend-difference"
+            aria-label="Vladislav. На главную"
           >
-            Влад<span className="text-accent">.</span>
+            Vladislav
           </TLink>
-
-          <nav aria-label="Основная навигация" className="hidden lg:block">
-            <ul className="flex items-center gap-8">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <TLink
-                    href={item.href}
-                    onClick={(e) => onAnchor(e, item.href)}
-                    className="group flex items-baseline gap-1.5 text-sm"
-                  >
-                    <span className="text-[0.65rem] text-muted transition-colors group-hover:text-accent">
-                      {item.n}
-                    </span>
-                    <span className="link-underline">{item.label}</span>
-                  </TLink>
-                </li>
-              ))}
-              <li>
-                <TLink href="/works" className="link-underline text-sm">
-                  Все работы
-                </TLink>
-              </li>
-            </ul>
-          </nav>
-
-          <div className="hidden items-center gap-3 md:flex">
-            <span className="flex items-center gap-2 text-xs text-muted">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60 [animation-duration:2s]" />
-                <span className="relative inline-flex size-2 rounded-full bg-accent" />
-              </span>
-              Беру проекты
+          <span className="glass pointer-events-auto hidden items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium sm:flex">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-fg opacity-50 [animation-duration:2s]" />
+              <span className="relative inline-flex size-2 rounded-full bg-fg" />
             </span>
-            <Magnetic>
-              <a
-                href={telegramLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full bg-fg px-5 py-2.5 text-sm font-semibold text-bg transition-colors hover:bg-accent"
-              >
-                Telegram
-              </a>
-            </Magnetic>
-          </div>
-
-          <MenuButton open={open} onToggle={() => setOpen((v) => !v)} className="lg:hidden" />
+            Беру проекты
+          </span>
         </div>
-      </m.header>
+      </header>
 
-      <MobileMenu open={open} onClose={() => setOpen(false)} />
+      <nav
+        aria-label="Основная навигация"
+        style={{ viewTransitionName: "site-dock" }}
+        className="fixed inset-x-0 bottom-4 z-[72] flex justify-center px-4 md:bottom-6"
+      >
+        <div className="glass flex w-full max-w-[22rem] items-center justify-between gap-2 rounded-[1.4rem] p-1.5">
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="site-menu"
+            className="flex h-11 items-center gap-3 rounded-[1rem] px-4 text-sm font-semibold transition-colors hover:bg-white/10"
+          >
+            <span className="relative block h-2.5 w-4" aria-hidden>
+              <span
+                className={cn(
+                  "absolute left-0 h-[1.5px] w-full bg-current transition-transform duration-300",
+                  open ? "top-1/2 rotate-45" : "top-0",
+                )}
+              />
+              <span
+                className={cn(
+                  "absolute left-0 h-[1.5px] w-full bg-current transition-transform duration-300",
+                  open ? "top-1/2 -rotate-45" : "bottom-0",
+                )}
+              />
+            </span>
+            {open ? "Закрыть" : "Меню"}
+          </button>
+          <Magnetic strength={0.2}>
+            <a
+              href={telegramLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-11 items-center gap-2 rounded-[1rem] px-4 text-sm font-semibold transition-colors hover:bg-white/10"
+            >
+              <span aria-hidden className="size-1.5 rounded-full bg-fg" />
+              Связаться
+            </a>
+          </Magnetic>
+        </div>
+      </nav>
+
+      <SiteMenu open={open} onClose={() => setOpen(false)} />
     </>
   );
 }
 
-function MenuButton({
-  open,
-  onToggle,
-  className,
-}: {
-  open: boolean;
-  onToggle: () => void;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onToggle}
-      aria-expanded={open}
-      aria-controls="mobile-menu"
-      aria-label={open ? "Закрыть меню" : "Открыть меню"}
-      className={cn(
-        "relative z-[76] flex h-11 items-center gap-3 rounded-full border border-line bg-bg/60 px-4 text-sm backdrop-blur",
-        className,
-      )}
-    >
-      <span className="relative block h-2.5 w-4" aria-hidden>
-        <span
-          className={cn(
-            "absolute left-0 h-px w-full bg-current transition-transform duration-300",
-            open ? "top-1/2 rotate-45" : "top-0",
-          )}
-        />
-        <span
-          className={cn(
-            "absolute left-0 h-px w-full bg-current transition-transform duration-300",
-            open ? "top-1/2 -rotate-45" : "bottom-0",
-          )}
-        />
-      </span>
-      {open ? "Закрыть" : "Меню"}
-    </button>
-  );
-}
-
-function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+function SiteMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const onAnchor = useAnchorClick(onClose);
 
@@ -194,64 +148,61 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     <AnimatePresence>
       {open && (
         <m.div
-          ref={ref}
-          id="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Меню"
-          className="fixed inset-0 z-[75] flex flex-col bg-surface pt-24 lg:hidden"
-          initial={{ clipPath: "inset(0 0 100% 0)" }}
-          animate={{ clipPath: "inset(0 0 0% 0)" }}
-          exit={{ clipPath: "inset(0 0 100% 0)" }}
-          transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          key="site-menu"
+          className="fixed inset-0 z-[71] flex items-end justify-center bg-black/60 px-4 pb-24 md:pb-28"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={(e) => e.target === e.currentTarget && onClose()}
         >
-          <button
-            type="button"
-            onClick={onClose}
-            className="absolute top-4 right-4 flex h-11 items-center rounded-full border border-line px-4 text-sm"
+          <m.div
+            ref={ref}
+            id="site-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Меню"
+            className="glass w-full max-w-[22rem] overflow-hidden rounded-[1.6rem] bg-black/70! p-2 text-fg [backdrop-filter:blur(30px)_saturate(160%)]!"
+            initial={{ y: 40, scale: 0.94, opacity: 0 }}
+            animate={{ y: 0, scale: 1, opacity: 1 }}
+            exit={{ y: 30, scale: 0.96, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 320, damping: 30 }}
           >
-            Закрыть
-          </button>
-          <nav aria-label="Мобильная навигация" className="container-x flex-1 overflow-y-auto">
             <ul className="flex flex-col">
-              {[...navItems, { href: "/works", label: "Все работы", n: "07" }].map((item, i) => (
-                <li key={item.href} className="overflow-hidden border-b border-line">
-                  <m.div
-                    initial={{ y: "100%" }}
-                    animate={{ y: "0%" }}
-                    transition={{ delay: 0.25 + i * 0.05, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              {[...navItems, { href: "/works", label: "Все работы", n: "07" }].map((item) => (
+                <li key={item.href}>
+                  <TLink
+                    href={item.href}
+                    onClick={(e) => onAnchor(e, item.href)}
+                    className="group flex items-center justify-between rounded-[1rem] px-4 py-2.5 transition-colors hover:bg-white/10"
                   >
-                    <TLink
-                      href={item.href}
-                      onClick={(e) => onAnchor(e, item.href)}
-                      className="flex items-baseline gap-3 py-3.5 font-display text-[clamp(1.6rem,8vw,2.6rem)] font-semibold"
-                    >
-                      <span className="text-xs font-normal text-accent">{item.n}</span>
-                      {item.label}
-                    </TLink>
-                  </m.div>
+                    <span className="flex items-baseline gap-3">
+                      <span className="font-mono text-[0.65rem] text-muted">{item.n}</span>
+                      <span className="brutal text-[1.6rem] leading-none tracking-[-0.04em]">{item.label}</span>
+                    </span>
+                    <ArrowUpRight aria-hidden className="size-4 opacity-0 transition-opacity group-hover:opacity-100" />
+                  </TLink>
                 </li>
               ))}
             </ul>
-          </nav>
-          <div className="container-x flex flex-wrap gap-3 py-6">
-            <a
-              href={telegramLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-12 flex-1 items-center justify-center rounded-full bg-accent px-5 text-sm font-semibold text-accent-fg"
-            >
-              Telegram
-            </a>
-            <a
-              href={site.channel.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-12 flex-1 items-center justify-center rounded-full border border-line px-5 text-sm"
-            >
-              Канал
-            </a>
-          </div>
+            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-line pt-2">
+              <a
+                href={telegramLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 items-center justify-center gap-2 rounded-[1rem] bg-fg text-sm font-semibold text-bg"
+              >
+                <Send aria-hidden className="size-4" /> Telegram
+              </a>
+              <a
+                href={site.channel.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass flex h-11 items-center justify-center rounded-[1rem] text-sm font-semibold"
+              >
+                Канал
+              </a>
+            </div>
+          </m.div>
         </m.div>
       )}
     </AnimatePresence>

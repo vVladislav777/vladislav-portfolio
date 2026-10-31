@@ -54,7 +54,7 @@ export function Faq() {
                 key={item.q}
                 className={cn(
                   "border-b border-line transition-colors duration-500",
-                  isOpen && "border-accent/60",
+                  isOpen && "border-fg",
                 )}
               >
                 <h3>
@@ -68,13 +68,13 @@ export function Faq() {
                   >
                     <span className="flex items-baseline gap-4">
                       <span className="font-display text-xs text-accent">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="font-display text-lg font-semibold md:text-2xl">{item.q}</span>
+                      <span className="text-lg font-bold tracking-tight uppercase md:text-2xl">{item.q}</span>
                     </span>
                     <span
                       aria-hidden
                       className={cn(
                         "relative grid size-11 shrink-0 place-items-center rounded-full border transition-colors duration-300",
-                        isOpen ? "border-accent bg-accent text-accent-fg" : "border-line group-hover:border-fg",
+                        isOpen ? "border-fg bg-fg text-bg" : "glass border-transparent group-hover:scale-105",
                       )}
                     >
                       <span className="absolute h-px w-3.5 bg-current" />

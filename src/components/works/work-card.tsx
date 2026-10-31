@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ViewTransition } from "react";
 import { TLink } from "@/components/ui/t-link";
+import { CardVideo } from "@/components/works/card-video";
 import { type Work, workImage } from "@/data/works";
 import { cn, pad } from "@/lib/utils";
 
@@ -43,24 +44,28 @@ export function WorkCard({
               className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.06]"
             />
           </ViewTransition>
-          <Image
-            src={workImage(work.slug, "alt")}
-            alt=""
-            fill
-            sizes={sizes}
-            className="object-cover opacity-0 transition-[opacity,scale] duration-700 ease-out-expo [scale:1.08] group-hover:opacity-100 group-hover:[scale:1] group-focus-visible:opacity-100"
-          />
-          <span className="absolute top-4 left-4 rounded-full bg-bg/70 px-3 py-1.5 text-xs backdrop-blur">
+          {work.video ? (
+            <CardVideo src={work.video} poster={workImage(work.slug, "cover")} />
+          ) : (
+            <Image
+              src={workImage(work.slug, "alt")}
+              alt=""
+              fill
+              sizes={sizes}
+              className="object-cover opacity-0 transition-[opacity,scale] duration-700 ease-out-expo [scale:1.08] group-hover:opacity-100 group-hover:[scale:1] group-focus-visible:opacity-100"
+            />
+          )}
+          <span className="glass absolute top-4 left-4 rounded-full px-3 py-1.5 text-xs font-semibold">
             {pad(index + 1)} / {pad(total)}
           </span>
-          <span className="absolute top-4 right-4 rounded-full bg-bg/70 px-3 py-1.5 text-xs backdrop-blur">
+          <span className="glass absolute top-4 right-4 rounded-full px-3 py-1.5 text-xs font-semibold">
             {work.type}
           </span>
         </div>
 
         <div className="mt-5 flex items-start justify-between gap-6">
           <div>
-            <h3 className="font-display text-xl font-semibold tracking-tight md:text-2xl">
+            <h3 className="brutal text-2xl md:text-[2rem]">
               <span className="link-underline">{work.title}</span>
             </h3>
             <p className="mt-1.5 text-sm text-muted">{work.kind}</p>
@@ -69,7 +74,7 @@ export function WorkCard({
         </div>
         <ul className="mt-4 flex flex-wrap gap-2" aria-label="Технологии">
           {work.stack.map((s) => (
-            <li key={s} className="rounded-full border border-line px-3 py-1 text-xs text-muted">
+            <li key={s} className="glass rounded-full px-3 py-1 text-xs font-medium">
               {s}
             </li>
           ))}
