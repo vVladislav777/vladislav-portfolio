@@ -8,7 +8,7 @@ import { site, telegramLink } from "@/config/site";
 export function LetsTalk() {
   const word = "Let's Talk";
   return (
-    <section aria-label="Связаться" className="theme-dark relative overflow-hidden pt-[var(--section)] pb-16">
+    <section id="contact" aria-label="Связаться" className="theme-dark relative overflow-hidden pt-[var(--section)] pb-16">
       <div className="container-x flex flex-col items-center">
         <p className="glass rounded-full px-4 py-2 text-xs font-semibold tracking-[0.2em] uppercase">
           Есть идея? Обсудим
@@ -45,6 +45,14 @@ export function LetsTalk() {
             Крутаните монету или нажмите, чтобы написать в Telegram{" "}
             <span className="font-semibold text-fg">@{site.telegram.username}</span>
           </p>
+          <a
+            href={site.channel.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glass rounded-full px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-white/10"
+          >
+            Канал с работами: {site.channel.label}
+          </a>
         </div>
       </div>
     </section>

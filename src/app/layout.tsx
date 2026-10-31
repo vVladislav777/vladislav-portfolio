@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Sedgwick_Ave_Display } from "next/font/google";
+import { Anton, Geist, Sedgwick_Ave_Display } from "next/font/google";
 import "./globals.css";
 import { site } from "@/config/site";
 import { MotionProvider } from "@/components/providers/motion-provider";
@@ -15,6 +15,14 @@ const geist = Geist({
   display: "swap",
 });
 
+// Сверхузкий тяжёлый гротеск для постерного слова Viberg
+const poster = Anton({
+  variable: "--font-poster",
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 // Рукописный маркер-тег для имени — как подпись в референсе
 const marker = Sedgwick_Ave_Display({
   variable: "--font-marker-tag",
@@ -26,16 +34,16 @@ const marker = Sedgwick_Ave_Display({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.role}`,
-    template: `%s — ${site.name}`,
+    default: `${site.brand} — Влад, ${site.role}`,
+    template: `%s — ${site.brand}`,
   },
   description: site.description,
   keywords: ["веб-дизайнер", "разработка лендингов", "сайт под ключ", "Next.js", "анимации"],
   openGraph: {
     type: "website",
     locale: "ru_RU",
-    siteName: site.name,
-    title: `${site.name} — ${site.role}`,
+    siteName: site.brand,
+    title: `${site.brand} — Влад, ${site.role}`,
     description: site.description,
   },
   twitter: { card: "summary_large_image" },
@@ -48,7 +56,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${geist.variable} ${marker.variable} antialiased`}>
+    <html lang="ru" className={`${geist.variable} ${marker.variable} ${poster.variable} antialiased`}>
       <body className="min-h-dvh">
         <a
           href="#main"

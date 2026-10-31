@@ -8,7 +8,7 @@ export function Pricing() {
       <div className="container-x">
         <Reveal className="brutal-box glass relative overflow-hidden p-8 md:p-16">
                     <p className="flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase">
-            <span className="bg-fg px-2 py-1 font-mono text-bg">05</span> Стоимость
+            <span className="bg-fg px-2 py-1 font-mono text-bg">03</span> Стоимость
           </p>
           <h2
             id="price-title"

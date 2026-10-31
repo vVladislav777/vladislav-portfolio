@@ -10,7 +10,7 @@ export function Footer() {
         </p>
         <ul className="flex flex-wrap gap-6">
           <li>
-            <TLink href="/works" className="link-underline hover:text-fg">
+            <TLink href="/#works" className="link-underline hover:text-fg">
               Работы
             </TLink>
           </li>

@@ -43,10 +43,10 @@ export function Header() {
         <div className="container-x flex h-18 items-center justify-between gap-6 md:h-20">
           <TLink
             href="/"
-            className="pointer-events-auto font-marker text-2xl leading-none text-white mix-blend-difference"
-            aria-label="Vladislav. На главную"
+            className="pointer-events-auto font-[family-name:var(--font-poster)] text-2xl leading-none tracking-wide text-white uppercase mix-blend-difference"
+            aria-label={`${site.brand}. На главную`}
           >
-            Vladislav
+            {site.brand}
           </TLink>
           <span className="glass pointer-events-auto hidden items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium sm:flex">
             <span className="relative flex size-2">
@@ -168,7 +168,7 @@ function SiteMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             transition={{ type: "spring", stiffness: 320, damping: 30 }}
           >
             <ul className="flex flex-col">
-              {[...navItems, { href: "/works", label: "Все работы", n: "07" }].map((item) => (
+              {navItems.map((item) => (
                 <li key={item.href}>
                   <TLink
                     href={item.href}

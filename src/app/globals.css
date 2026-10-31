@@ -317,3 +317,17 @@ html.has-cursor textarea {
 .name-rise {
   animation: name-rise 1.1s cubic-bezier(0.76, 0, 0.24, 1) 0.15s both;
 }
+
+/* ── Hero: буквы постера выезжают из-под маски по очереди ── */
+@keyframes poster-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(-5% -10% -5% -10%);
+  }
+}
+.poster-letter {
+  animation: poster-in 1.3s var(--ease-in-out) both;
+  animation-delay: calc(0.1s + var(--i) * 0.09s);
+}
