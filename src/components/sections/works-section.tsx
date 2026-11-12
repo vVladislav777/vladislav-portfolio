@@ -21,7 +21,7 @@ export function WorksSection() {
   return (
     <section id="works" aria-label="Работы" className="section-y">
       <div className="container-x">
-        <SectionHead n="02" label="Портфолио" title="Посмотри мои работы" />
+        <SectionHead n="01" label="Портфолио" title="Работы в действии" lead="Четыре проекта: посмотрите дизайн и взаимодействия в видео. В каждом — своя задача, структура и подача." />
 
         <div className="mt-12 flex flex-wrap items-end justify-between gap-6 md:mt-16">
           <p className="flex items-end gap-3">

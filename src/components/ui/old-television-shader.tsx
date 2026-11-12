@@ -8,7 +8,7 @@
 // через ThreeElements (так требует React 19 + R3F 9); плоскость масштабируется
 // по вьюпорту, чтобы шейдер покрывал широкие экраны без полос по бокам.
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Canvas, useFrame, useThree, extend, type ThreeElement } from "@react-three/fiber"
 import { shaderMaterial } from "@react-three/drei"
 import * as THREE from "three"
@@ -151,7 +151,8 @@ function ShaderPlane() {
       materialRef.current.uTime = state.clock.elapsedTime
 
       // Smooth mouse interpolation
-      materialRef.current.uMouse.lerp(new THREE.Vector2(mouse.current.x, mouse.current.y), 0.05)
+      materialRef.current.uMouse.x += (mouse.current.x - materialRef.current.uMouse.x) * 0.05
+      materialRef.current.uMouse.y += (mouse.current.y - materialRef.current.uMouse.y) * 0.05
 
       // Update resolution
       materialRef.current.uResolution.set(window.innerWidth, window.innerHeight)
@@ -160,15 +161,28 @@ function ShaderPlane() {
 
   return (
     <mesh ref={meshRef} scale={[Math.max(4, viewport.width * 1.05), Math.max(4, viewport.height * 1.05), 1]}>
-      <planeGeometry args={[1, 1, 64, 64]} />
+      <planeGeometry args={[1, 1]} />
       <waveShaderMaterial ref={materialRef} key={WaveShaderMaterial.key} />
     </mesh>
   )
 }
 
 export default function PolishedShader() {
+  const container = useRef<HTMLDivElement>(null)
+  const [active, setActive] = useState(true)
+  useEffect(() => {
+    let inView = true
+    const update = () => setActive(inView && document.visibilityState === "visible")
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry?.isIntersecting ?? false
+      update()
+    })
+    if (container.current) observer.observe(container.current)
+    document.addEventListener("visibilitychange", update)
+    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", update) }
+  }, [])
   return (
-    <div className="w-full h-screen relative overflow-hidden bg-background">
+    <div ref={container} className="w-full h-full relative overflow-hidden bg-background">
       <div
         className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none"
         style={{
@@ -178,7 +192,7 @@ export default function PolishedShader() {
       />
 
       {/* 3D Canvas */}
-      <Canvas camera={{ position: [0, 0, 2], fov: 75 }} className="absolute inset-0">
+      <Canvas dpr={1} frameloop={active ? "always" : "never"} gl={{ antialias: false, alpha: false }} camera={{ position: [0, 0, 2], fov: 75 }} className="absolute inset-0">
         <ShaderPlane />
       </Canvas>
     </div>

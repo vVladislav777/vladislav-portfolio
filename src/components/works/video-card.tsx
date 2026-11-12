@@ -17,20 +17,23 @@ export function VideoCard({ work, index, onOpen }: { work: Work; index: number; 
 
   useEffect(() => {
     const v = video.current;
-    if (!v || reduced) return;
+    if (!v) return;
+    if (reduced) { v.pause(); return; }
+    let inView = false;
+    const sync = () => {
+      if (inView && document.visibilityState === "visible") v.play().catch(() => {});
+      else v.pause();
+    };
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry?.isIntersecting) {
-          v.preload = "auto";
-          v.play().catch(() => {});
-        } else {
-          v.pause();
-        }
+        inView = entry?.isIntersecting ?? false;
+        sync();
       },
-      { rootMargin: "100px 0px" },
+      { threshold: 0.1 },
     );
     io.observe(v);
-    return () => io.disconnect();
+    document.addEventListener("visibilitychange", sync);
+    return () => { io.disconnect(); v.pause(); document.removeEventListener("visibilitychange", sync); };
   }, [reduced]);
 
   return (
@@ -82,6 +85,10 @@ export function VideoCard({ work, index, onOpen }: { work: Work; index: number; 
           <ArrowUpRight aria-hidden className="size-5" />
         </button>
       </div>
+      <p className="mt-5 max-w-xl leading-relaxed text-muted"><span className="font-semibold text-fg">Задача: </span>{work.task}</p>
+      <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted"><span className="font-semibold text-fg">Реализовано: </span>{work.features.join(" · ")}.</p>
+      <button type="button" onClick={onOpen} className="mt-4 min-h-11 text-sm font-semibold underline underline-offset-4" aria-label={`Смотреть видео проекта ${work.title}`}>Смотреть видео проекта ↗</button>
+      {work.url !== "#" && <a href={work.url} target="_blank" rel="noopener noreferrer" className="ml-5 inline-flex min-h-11 items-center text-sm underline underline-offset-4">Открыть сайт ↗</a>}
     </article>
   );
 }

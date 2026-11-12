@@ -26,7 +26,7 @@ const marker = Sedgwick_Ave_Display({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.brand} — Влад, ${site.role}`,
+    default: site.title,
     template: `%s — ${site.brand}`,
   },
   description: site.description,
@@ -35,7 +35,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_RU",
     siteName: site.brand,
-    title: `${site.brand} — Влад, ${site.role}`,
+    url: site.url,
+    title: site.title,
     description: site.description,
   },
   twitter: { card: "summary_large_image" },

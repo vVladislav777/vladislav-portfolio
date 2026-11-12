@@ -46,8 +46,10 @@ export function VideoModal({
     if (index === null) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") onIndex((index + 1) % works.length);
-      if (e.key === "ArrowLeft") onIndex((index - 1 + works.length) % works.length);
+      if (!(e.target instanceof HTMLVideoElement)) {
+        if (e.key === "ArrowRight") { e.preventDefault(); onIndex((index + 1) % works.length); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); onIndex((index - 1 + works.length) % works.length); }
+      }
       if (e.key !== "Tab" || !ref.current) return;
       // Ловушка фокуса внутри окна
       const list = Array.from(ref.current.querySelectorAll<HTMLElement>("button, a, video[controls]"));
@@ -118,6 +120,10 @@ export function VideoModal({
               </h2>
               <p className="mt-2 text-sm text-muted">{work.kind}</p>
               <p className="mt-5 max-w-2xl text-base leading-relaxed md:text-lg">{work.description}</p>
+              <h3 className="mt-6 font-semibold">Задача</h3>
+              <p className="mt-2 text-muted">{work.task}</p>
+              <h3 className="mt-5 font-semibold">Что реализовано</h3>
+              <ul className="mt-2 list-inside list-disc text-muted">{work.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
               <ul className="mt-5 flex flex-wrap gap-2" aria-label="Теги">
                 {work.tags.map((t) => (
                   <li key={t} className="glass rounded-full px-3 py-1 text-xs font-medium">
@@ -128,11 +134,11 @@ export function VideoModal({
 
               <div className="mt-8 flex flex-wrap items-center justify-between gap-5">
                 <ButtonLink
-                  href={telegramLink(`Здравствуйте! Посмотрел работу «${work.title}». Хочу такой же сайт.`)}
+                  href={telegramLink(`Здравствуйте! Посмотрел работу «${work.title}». Хочу обсудить сайт для своего бизнеса.`)}
                   external
                   magnetic={false}
                 >
-                  Хочу такой же
+                  Обсудить мой проект
                 </ButtonLink>
                 <div className="flex items-center gap-3">
                   <button

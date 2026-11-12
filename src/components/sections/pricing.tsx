@@ -1,36 +1,63 @@
-import { Reveal } from "@/components/ui/reveal";
-import { ButtonLink } from "@/components/ui/button";
+import { SectionHead } from "@/components/sections/section-head";
 import { telegramLink } from "@/config/site";
-
+const offers = [
+  {
+    title: "Лендинг",
+    price: "от 10 000 ₽",
+    detail: "Одна страница для вашего предложения.",
+  },
+  {
+    title: "Лендинг + бот",
+    price: "15 000 ₽",
+    detail: "Сайт и бот. Сценарии и функции бота согласуем перед началом.",
+  },
+  {
+    title: "Многостраничник",
+    price: "20 000 ₽",
+    detail: "Несколько страниц с единой структурой и дизайном.",
+  },
+];
 export function Pricing() {
   return (
-    <section id="price" aria-labelledby="price-title" className="pb-[var(--section)]">
+    <section id="price" aria-label="Стоимость" className="pb-[var(--section)]">
       <div className="container-x">
-        <Reveal className="brutal-box glass relative overflow-hidden p-8 md:p-16">
-                    <p className="flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase">
-            <span className="bg-fg px-2 py-1 font-mono text-bg">03</span> Стоимость
-          </p>
-          <h2
-            id="price-title"
-            className="brutal mt-8 text-[clamp(2.6rem,9vw,8.5rem)]"
-          >
-            Цена договорная
-          </h2>
-          <div className="mt-8 grid gap-8 md:grid-cols-2 md:items-end">
-            <p className="max-w-xl text-lg text-muted md:text-xl">
-              Зависит от объёма, сроков и сложности. Напишите, и я назову сумму после короткого
-              обсуждения.
-            </p>
-            <div className="flex flex-wrap gap-3 md:justify-end">
-              <ButtonLink href={telegramLink("Здравствуйте! Хочу обсудить стоимость сайта.")} external>
-                Обсудить проект
-              </ButtonLink>
-              <ButtonLink href="/#works">
-                Смотреть работы
-              </ButtonLink>
-            </div>
-          </div>
-        </Reveal>
+        <SectionHead n="04" label="Стоимость" title="Понятный старт" />
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {offers.map((offer) => (
+            <article
+              key={offer.title}
+              className="glass flex flex-col rounded-card p-6 md:p-8"
+            >
+              <h3 className="text-xl font-semibold">{offer.title}</h3>
+              <p className="mt-6 text-[clamp(2rem,3.4vw,3.4rem)] leading-none font-black tracking-[-0.05em] whitespace-nowrap">
+                {offer.price}
+              </p>
+              <p className="mt-6 flex-1 leading-relaxed text-muted">
+                {offer.detail}
+              </p>
+              <a
+                href={telegramLink(
+                  "Здравствуйте! Интересует " +
+                    offer.title.toLowerCase() +
+                    " (" +
+                    offer.price +
+                    "). Давайте обсудим состав работ.",
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 rounded-full bg-fg px-5 py-3 text-center text-sm font-semibold text-bg"
+                aria-label={"Обсудить проект: " + offer.title.toLowerCase()}
+              >
+                Обсудить проект ↗
+              </a>
+            </article>
+          ))}
+        </div>
+        <p className="mt-6 max-w-3xl leading-relaxed text-muted">
+          Перед стартом согласуем состав работ, сроки и итоговую стоимость.
+          Число страниц, интеграции, хостинг и домен обсудим отдельно. Стоимость
+          редизайна определю после просмотра вашего сайта.
+        </p>
       </div>
     </section>
   );

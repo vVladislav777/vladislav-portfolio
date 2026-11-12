@@ -15,7 +15,7 @@ export function ChaosName({ text }: { text: string }) {
   const filter = `chaos-${id}`;
 
   return (
-    <h1 id="hero-title" className="chaos-in w-full">
+    <div className="chaos-in w-full">
       <span className="sr-only">{text}</span>
       <svg viewBox="0 0 1000 260" className="block h-auto w-full overflow-visible" aria-hidden focusable="false">
         <defs>
@@ -75,6 +75,6 @@ export function ChaosName({ text }: { text: string }) {
           {text.toUpperCase()}
         </text>
       </svg>
-    </h1>
+    </div>
   );
 }

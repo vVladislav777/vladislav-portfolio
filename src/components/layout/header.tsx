@@ -94,7 +94,7 @@ export function Header() {
               className="flex h-11 items-center gap-2 rounded-[1rem] px-4 text-sm font-semibold transition-colors hover:bg-white/10"
             >
               <span aria-hidden className="size-1.5 rounded-full bg-fg" />
-              Связаться
+              Обсудить проект
             </a>
           </Magnetic>
         </div>
@@ -160,7 +160,7 @@ function SiteMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             role="dialog"
             aria-modal="true"
             aria-label="Меню"
-            className="glass w-full max-w-[22rem] overflow-hidden rounded-[1.6rem] bg-black/70! p-2 text-fg [backdrop-filter:blur(30px)_saturate(160%)]!"
+            className="glass w-full max-w-[22rem] max-h-[calc(100svh-8rem)] overflow-y-auto overscroll-contain rounded-[1.6rem] bg-black/70! p-2 text-fg [backdrop-filter:blur(30px)_saturate(160%)]!"
             initial={{ y: 40, scale: 0.94, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 30, scale: 0.96, opacity: 0 }}

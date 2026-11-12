@@ -10,9 +10,9 @@ export function LetsTalk() {
   return (
     <section id="contact" aria-label="Связаться" className="theme-dark relative overflow-hidden pt-[var(--section)] pb-16">
       <div className="container-x flex flex-col items-center">
-        <p className="glass rounded-full px-4 py-2 text-xs font-semibold tracking-[0.2em] uppercase">
+        <h2 className="glass rounded-full px-4 py-2 text-xs font-semibold tracking-[0.2em] uppercase">
           Есть идея? Обсудим
-        </p>
+        </h2>
         <a
           href={telegramLink("Здравствуйте! Хочу обсудить сайт.")}
           target="_blank"
@@ -38,6 +38,9 @@ export function LetsTalk() {
             </span>
           ))}
         </a>
+
+        <p className="mt-6 max-w-lg text-center text-lg text-muted">Расскажите, чем занимаетесь, какой сайт нужен и есть ли сроки. Обсудим задачу и определим следующий шаг.</p>
+        <a href={telegramLink("Здравствуйте! Хочу обсудить проект. Мой бизнес: ... Нужен сайт для: ... Желаемый срок: ...")} target="_blank" rel="noopener noreferrer" className="mt-6 rounded-full bg-fg px-6 py-3 font-semibold text-bg">Обсудить проект в Telegram ↗</a>
 
         <div className="mt-16 flex flex-col items-center gap-10 md:mt-20">
           <TelegramCoin href={telegramLink()} />

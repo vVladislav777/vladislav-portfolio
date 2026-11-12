@@ -9,18 +9,22 @@ export type Work = {
   duration: string;
   tags: string[];
   description: string;
+  task: string;
+  features: string[];
   /** Заглушка: замените на реальную ссылку на проект. */
   url: string;
 };
 
-/** Видео и постер лежат в public/videos/<slug>.mp4 и <slug>.jpg (с префиксом пути на GitHub Pages) */
+/** Видео и постер лежат в public/videos/<slug>.mp4 и <slug>.webp (с префиксом пути на GitHub Pages) */
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export const workVideo = (slug: string) => `${base}/videos/${slug}.mp4`;
-export const workPoster = (slug: string) => `${base}/videos/${slug}.jpg`;
+export const workPoster = (slug: string) => `${base}/videos/${slug}.webp`;
 
 export const works: Work[] = [
   {
     slug: "bavaria-motors",
+    task: "Помочь посетителю выбрать модель и перейти к записи на тест-драйв.",
+    features: ["Каталог моделей", "Блоки trade-in и кредита", "Запись на тест-драйв"],
     title: "Bavaria Motors",
     type: "Лендинг",
     kind: "Автосалон немецких автомобилей",
@@ -32,6 +36,8 @@ export const works: Work[] = [
   },
   {
     slug: "terrascape-gazette",
+    task: "Представить кроссовки через необычный журнальный формат и интерактивные детали.",
+    features: ["Газетная сетка", "Карточка товара", "Интерактивная коробка"],
     title: "The Terrascape Gazette",
     type: "Многостраничный",
     kind: "Журнальный сайт про кроссовки",
@@ -43,6 +49,8 @@ export const works: Work[] = [
   },
   {
     slug: "sosnovy-dvor",
+    task: "Упростить подбор коттеджа и переход к заявке на просмотр.",
+    features: ["Каталог с фильтрами", "Планировки домов", "Заявка с выбранным домом"],
     title: "Сосновый двор",
     type: "Многостраничный",
     kind: "Коттеджи в сосновом лесу",
@@ -54,6 +62,8 @@ export const works: Work[] = [
   },
   {
     slug: "kashtan",
+    task: "Познакомить с атмосферой кофейни, показать меню и помочь найти адрес.",
+    features: ["Интерактивное меню", "Галерея интерьера", "Адрес и маршрут"],
     title: "Каштан",
     type: "Лендинг",
     kind: "Кофейня specialty coffee",

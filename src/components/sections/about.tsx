@@ -11,23 +11,23 @@ const skills = [
 
 export function About() {
   return (
-    <section id="about" aria-label="Обо мне" className="section-y">
+    <section id="about" aria-label="Обо мне" className="pb-[var(--section)]">
       <div className="container-x">
-        <SectionHead n="01" label="Обо мне" title="Меня зовут Влад" />
+        <SectionHead n="05" label="Обо мне" title="Меня зовут Влад" />
 
         <div className="mt-14 grid gap-12 md:mt-20 md:grid-cols-12 md:gap-8">
           <Reveal className="md:col-span-5">
-            <p className="brutal text-[clamp(5rem,16vw,12rem)] leading-[0.8]">16</p>
-            <p className="mt-3 text-sm font-bold tracking-[0.2em] text-muted uppercase">лет</p>
+            <p className="brutal text-[clamp(2.5rem,5vw,5rem)]">Дизайн.<br />Код.<br />Запуск.</p>
+            <p className="mt-6 max-w-sm text-muted">За проектом Viberg стою я — Влад. Обсуждаете задачу напрямую с тем, кто делает ваш сайт.</p>
           </Reveal>
 
           <div className="md:col-span-7">
             <Reveal>
               <p className="text-xl leading-snug md:text-3xl">
-                Я делаю сайты под заказ и каждый проект собираю под конкретную задачу, а не из шаблона.
+                Я соединяю веб-дизайн и разработку: от структуры страницы до адаптивной версии и запуска.
               </p>
               <p className="mt-6 text-lg text-muted md:text-xl">
-                Моя цель, чтобы сайт не просто красиво выглядел, а помогал бизнесу получать заявки.
+                Начинаю с вашей задачи: что предлагаете, кому и какое действие ждёте от посетителя. Под это собираю страницы и навигацию. Анимации помогают показать главное, а формы и кнопки — связаться с вами.
               </p>
             </Reveal>
 
